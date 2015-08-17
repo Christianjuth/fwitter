@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Fwitter</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Scripts -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="list-group col-xs-4 col-xs-offset-4">
+
+      <% @all_tweets.each do |tweet| %>
+        <a href="#" class="list-group-item">
+          <p class="list-group-item-text">
+            <%= tweet.username %> - <%= tweet.msg %>
+          </p>
+        </a>
+      <% end %>
+
+    </div>
+  </div>
+</body>
+</html>
