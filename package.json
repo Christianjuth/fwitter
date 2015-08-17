@@ -1,0 +1,23 @@
+{
+  "name": "fwitter",
+  "version": "0.1.0",
+  "description": "Fake Twitter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Christianjuth/fwitter.git"
+  },
+  "author": "Christian Juth",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Christianjuth/fwitter/issues"
+  },
+  "homepage": "https://github.com/Christianjuth/fwitter",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-less": "^1.0.1"
+  }
+}
