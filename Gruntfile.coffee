@@ -2,22 +2,20 @@ module.exports = (grunt)->
 
   # Project configuration.
   grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
-    uglify: {
-      options: {
-        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-      },
-      build: {
-        src: 'src/<%= pkg.name %>.js',
-        dest: 'build/<%= pkg.name %>.min.js'
-      }
-    }
+    pkg: grunt.file.readJSON('package.json')
+    sass:
+      default:
+        files: [{
+          expand: true,
+          cwd: "public/sass",
+          src: ["**/*.scss"],
+          dest: "public/css",
+          ext: ".css"
+        }]
   });
 
   # Load the plugin that provides the "uglify" task.
-  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-sass')
 
   # Default task(s).
-  grunt.registerTask('default', ['uglify']);
-
-};
+  grunt.registerTask('default', ['sass:default'])
