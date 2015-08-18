@@ -3,7 +3,7 @@ class Tweet
   ALL_TWEETS = []
 
   def initialize(username, msg)
-    @username = username
+    @username = username.downcase
     @msg = msg
     ALL_TWEETS.push(self)
   end

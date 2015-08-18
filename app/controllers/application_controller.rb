@@ -11,9 +11,20 @@ class ApplicationController < Sinatra::Base
     set :views, "app/views"
   end
 
+  # Home page
   get "/" do
-    @tweet = Tweet.new("Jim", "Hello I'm a Steelers fan!")
-    @tweet = Tweet.new("Christian", "YOLO")
+    Tweet.new("jim", "Hello I'm a Steelers fan!")
+    Tweet.new("christian", "Pizza!")
+    Tweet.new("nick", "I love Vim")
+    Tweet.new("nick", "I love Vim")
+    Tweet.new("pickle", "Yoooodllllayyyyyeeee")
+    @all_tweets = Tweet.all
+    erb :index
+  end
+
+  # Post to Fwitter
+  post '/new_tweet' do
+    Tweet.new(params["username"], params["msg"])
     @all_tweets = Tweet.all
     erb :index
   end
