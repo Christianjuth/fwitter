@@ -1,3 +1,4 @@
 require "./app/controllers/application_controller"
+require 'mustache/sinatra'
 
-run ApplicationController
+run ApplicationControler

@@ -5,16 +5,25 @@ require "./config/environment"
 require "./app/models/tweet"
 
 # Set routs
-class ApplicationController < Sinatra::Base
-  configure do
-    set :public_folder, "public"
-    set :views, "app/views"
-  end
+class ApplicationControler < Sinatra::Base
+  register Mustache::Sinatra
+
+
+  set :mustache, {
+    templates: "./app/templates",
+    views: "./app/views"
+  }
+
+  # configure do
+  #   set :public_folder, "public"
+  #   set :views, "app/views"
+  # end
 
   get "/" do
-    @tweet = Tweet.new("Jim", "Hello I'm a Steelers fan!")
-    @tweet = Tweet.new("Christian", "YOLO")
-    @all_tweets = Tweet.all
-    erb :index
+    @title = "YOLO"
+    # Tweet.new("Jim", "Hello I'm a Steelers fan!")
+    # Tweet.new("Christian", "YOLO")
+    # @tweets = Tweet.all
+    mustache :index
   end
 end
