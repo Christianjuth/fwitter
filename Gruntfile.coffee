@@ -1,4 +1,9 @@
 module.exports = (grunt)->
+  # Time Grunt tasks
+  require('time-grunt')(grunt);
+
+  # Load all Grunt tasks
+  require('load-grunt-tasks')(grunt);
 
   # Project configuration.
   grunt.initConfig({
@@ -12,10 +17,16 @@ module.exports = (grunt)->
           dest: "public/css",
           ext: ".css"
         }]
+    coffee:
+      default:
+        files: [{
+          expand: true,
+          cwd: "public/coffee",
+          src: ["**/*.coffee"],
+          dest: "public/js",
+          ext: ".js"
+        }]
   });
 
-  # Load the plugin that provides the "uglify" task.
-  grunt.loadNpmTasks('grunt-contrib-sass')
-
   # Default task(s).
-  grunt.registerTask('default', ['sass:default'])
+  grunt.registerTask('default', ['sass', 'coffee'])

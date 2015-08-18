@@ -1,2 +1,3 @@
 node_modules
-Gemfile.lock
+public/css/*
+public/js/*
