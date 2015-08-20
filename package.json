@@ -4,8 +4,9 @@
   "description": "Fake Twitter",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "shotgun -o 0.0.0.0 -p 3000"
+    "postinstall": "bundle install && grunt default",
+    "test": "",
+    "start": "grunt default && shotgun -o 0.0.0.0 -p 3000"
   },
   "repository": {
     "type": "git",
