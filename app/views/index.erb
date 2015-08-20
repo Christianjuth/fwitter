@@ -1,11 +1,11 @@
 <div class="row">
 
-  <div class="col-xs-12 col-md-8">
+  <div class="col-xs-12 col-sm-8">
     <div class="list-group">
       <% @all_tweets.each do |tweet| %>
         <div class="list-group-item">
           <p class="list-group-item-text">
-            @<%= tweet.username %> - <%= tweet.msg %>
+            @<%= tweet.user.username %> - <%= tweet.msg %>
           </p>
         </div>
       <% end %>
@@ -13,14 +13,20 @@
   </div>
 
 
-  <div class="col-xs-12 col-md-4">
+  <div class="col-xs-12 col-sm-4">
     <div class="panel panel-default">
       <div class="panel-body">
 
         <form action="/new_tweet" method="POST">
           <div class="form-group">
             <label for="username">Username</label>
-            <input type="text" name="username" class="form-control" id="username" placeholder="username">
+            <select class="form-control" name="user_id">
+              <% @all_users.each do |user| %>
+                <option value="<%= user.id %>">
+                  <%= user.username %>
+                </option>
+              <% end %>
+            </select>
           </div>
           <div class="form-group">
             <label for="msg">Message</label>
@@ -34,7 +40,7 @@
 
     <div class="panel panel-default">
       <div class="panel-body">
-        <p>Built with &#10084; and Ruby by Christian Juth at the Flatiron School. This project is projected by the MIT licence and is opensource.</p>
+        <p>Built with <span class="text-danger">&#10084;</span> and Ruby by Christian Juth at the Flatiron School. This project is projected by the MIT licence and is opensource.</p>
       </div>
     </div>
   </div>
