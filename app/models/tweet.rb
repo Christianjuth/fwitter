@@ -1,14 +1,11 @@
-class Tweet
-  attr_accessor :username, :msg
-  ALL_TWEETS = []
+class Tweet < ActiveRecord::Base
+  validates :username, 
+    presence: true, 
+    format: { with: /\A([a-z]|[1-9])+\Z/i,
+    message: "user letters and numbers only" }
 
-  def initialize(username, msg)
-    @username = username.downcase
-    @msg = msg
-    ALL_TWEETS.push(self)
-  end
-
-  def self.all
-    ALL_TWEETS
-  end
+  validates :mes,
+    presence: true,
+    length: { minimum: 10, maximum: 140,
+    message: "enter 10 to 140 characters" }
 end

@@ -14,9 +14,11 @@
 </head>
 <body>
   <div class="container-fluid">
-    <div class="col-xs-12 col-xs-offset-0 col-md-8 col-md-offset-2">
-      <%= ERB.new(File.read("./app/views/header.erb")).result(binding) %>
-      <%= yield %>
+    <div class="row">
+      <div class="col-xs-12 col-md-8 col-md-offset-2">
+        <%= ERB.new(File.read("./app/views/header.erb")).result(binding) %>
+        <%= yield %>
+      </div>
     </div>
   </div>
 </body>
