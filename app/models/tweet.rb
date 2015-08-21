@@ -16,7 +16,7 @@ class Tweet < ActiveRecord::Base
     message: "enter 5 to 140 characters" }
 
   after_save do |tweet|
-    hashtags = tweet.msg.scan(/(?<=^#|\s#)[a-z]+(?=\s|$)/i)
+    hashtags = tweet.msg.scan(/(?<=#)[a-z0-9]+(?=\s|#|$)/i)
     hashtags.each do |hashtag_string|
       hashtag = Hashtag.find_by({name: hashtag_string})
       unless hashtag

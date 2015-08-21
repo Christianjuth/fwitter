@@ -1,37 +1,10 @@
-<script type="text/javascript">
-  $(document).ready(function(){
-    twitterSyntax = function(el){
-      el.each(function(){
-        var $this = $(this);
-        var text  = $this.text();
-        text = text.replace(/@[a-z]+/ig,function(at){
-          return "<a href='#'>"+at+"</a>"
-        });
-        text = text.replace(/#[a-z]+(?=\s|$)/ig,function(hash){
-          return "<a href='#'>"+hash+"</a>"
-        });
-        $this.html(text);
-      });
-    }
-
-
-    twitterSyntax($("#tweets .tweet"));
-    $("#tweet-form #msg").keyup(function(){
-      console.log("type");
-      twitterSyntax($(this));
-    });
-  });
-</script>
-
-
-
 <div class="row">
 
   <div class="col-xs-12 col-sm-8">
-    <div id="tweets" class="list-group">
+    <div class="list-group">
       <% @all_tweets.each do |tweet| %>
         <div class="list-group-item">
-          <p class="tweet list-group-item-text">
+          <p class="twitter-syntax list-group-item-text">
             @<%= tweet.user.username %> - <%= tweet.msg %>
           </p>
         </div>
