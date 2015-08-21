@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-body">
 
-    <form action="/sign_up" method="POST">
+    <form action="/login" method="POST">
       <div class="form-group">
         <label for="username">Username</label>
         <input type="text" name="username" class="form-control" id="username" placeholder="username">
@@ -10,11 +10,10 @@
         <label for="email">Email</label>
         <input type="email" name="email" class="form-control" id="email" placeholder="email">
       </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" name="password" class="form-control" id="password" placeholder="password">
+      <div class="pull-right">
+        <a href="/signup" class="btn btn-default">Create account</a>
+        <button type="submit" class="btn btn-default">Login</button>
       </div>
-      <button type="submit" class="btn btn-default pull-right">Submit</button>
     </form>
 
   </div>

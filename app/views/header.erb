@@ -29,7 +29,17 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
           <li><a href="/">Home</a></li>
-          <li><a href="/sign_up">Sign Up</a></li>
+
+          <% unless session[:user_id] %>
+          	<li><a href="/login">Login</a></li>
+          <% else %>
+	          <li>
+	          	<form action="/logout" method="post">
+				    		<button class="btn btn-link navbar-btn">Logout</button>
+							</form>
+				    </li>
+				  <% end %>
+				  
         </ul>
       </div>
       </div>

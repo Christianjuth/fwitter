@@ -1,5 +1,8 @@
 node_modules
+npm-debug.log
+
+.sass-cache
 public/css
 public/js
+
 db/database.db
-.sass-cache

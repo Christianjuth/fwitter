@@ -1,10 +1,37 @@
+<script type="text/javascript">
+  $(document).ready(function(){
+    twitterSyntax = function(el){
+      el.each(function(){
+        var $this = $(this);
+        var text  = $this.text();
+        text = text.replace(/@[a-z]+/ig,function(at){
+          return "<a href='#'>"+at+"</a>"
+        });
+        text = text.replace(/#[a-z]+(?=\s|$)/ig,function(hash){
+          return "<a href='#'>"+hash+"</a>"
+        });
+        $this.html(text);
+      });
+    }
+
+
+    twitterSyntax($("#tweets .tweet"));
+    $("#tweet-form #msg").keyup(function(){
+      console.log("type");
+      twitterSyntax($(this));
+    });
+  });
+</script>
+
+
+
 <div class="row">
 
   <div class="col-xs-12 col-sm-8">
-    <div class="list-group">
+    <div id="tweets" class="list-group">
       <% @all_tweets.each do |tweet| %>
         <div class="list-group-item">
-          <p class="list-group-item-text">
+          <p class="tweet list-group-item-text">
             @<%= tweet.user.username %> - <%= tweet.msg %>
           </p>
         </div>
@@ -17,22 +44,11 @@
     <div class="panel panel-default">
       <div class="panel-body">
 
-        <form action="/new_tweet" method="POST">
+        <form id="tweet-form" action="/new_tweet" method="POST">
           <div class="form-group">
-            <label for="username">Username</label>
-            <select class="form-control" name="user_id">
-              <% @all_users.each do |user| %>
-                <option value="<%= user.id %>">
-                  <%= user.username %>
-                </option>
-              <% end %>
-            </select>
+            <textarea rows="4" type="text" name="msg" class="form-control" id="msg" placeholder="140 characters or less..."></textarea>
           </div>
-          <div class="form-group">
-            <label for="msg">Message</label>
-            <textarea rows="3" type="text" name="msg" class="form-control" id="msg" placeholder="140 characters or less..."></textarea>
-          </div>
-          <button type="submit" class="btn btn-default pull-right">Submit</button>
+          <button type="submit" class="btn btn-default btn-block pull-right">Submit</button>
         </form>
 
       </div>

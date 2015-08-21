@@ -4,12 +4,25 @@ require "./config/environment"
 # Get models
 require "./app/models/user"
 require "./app/models/tweet"
+require "./app/models/hashtag"
+require "./app/models/tweets_hashtag"
 
 # Set routs
 class ApplicationController < Sinatra::Base
   configure do
     set :public_folder, "public"
     set :views, "app/views"
+    enable :sessions
+    set :session_secret, "flatiron"
+  end
+
+  # If loged in
+  before do
+    if !session[:user_id] && !["/login","/signup"].include?(request.path)
+      redirect "/login"
+    elsif !["/login","/signup"].include?(request.path)
+      @user = User.find(session[:user_id])
+    end
   end
 
   # Home page
@@ -22,7 +35,7 @@ class ApplicationController < Sinatra::Base
   # Post to Fwitter
   post '/new_tweet' do
     tweet = Tweet.new({
-      user_id: params[:user_id],
+      user_id: @user.id,
       msg: params[:msg]
     })
     tweet.save
@@ -30,17 +43,39 @@ class ApplicationController < Sinatra::Base
   end
 
   # User sign up
-  get "/sign_up" do
-    erb :sign_up
+  get "/signup" do
+    erb :signup
   end
 
-  post '/sign_up' do
+  post '/signup' do
     user = User.new({
       username: params[:username],
       email:    params[:email],
-      password: params[:password],
+      hashed_password: params[:password],
     })
     user.save
+    session[:user_id] = user.id
     redirect '/'
+  end
+
+  # Login
+  get "/login" do
+    erb :login
+  end
+
+  post '/login' do
+    @user = User.find_by({username: params[:username]})
+    unless session[:user_id]
+      session[:user_id] = @user.id
+      redirect "/"
+    else
+      redirect "/login"
+    end
+  end
+
+  # Logout
+  post '/logout' do
+    session[:user_id] = nil
+    redirect "/"
   end
 end

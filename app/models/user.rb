@@ -1,3 +1,6 @@
+# Set environment
+require "./config/environment"
+
 class User < ActiveRecord::Base
   # Table links
   has_many :tweets
