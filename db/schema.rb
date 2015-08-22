@@ -14,18 +14,27 @@
 ActiveRecord::Schema.define(version: 20150821140214) do
 
   create_table "hashtags", force: :cascade do |t|
-    t.string "name"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tweets", force: :cascade do |t|
-    t.string "user_id"
-    t.string "msg"
+    t.string   "user_id"
+    t.string   "msg"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tweets_hashtags", force: :cascade do |t|
-    t.integer "tweet_id"
-    t.integer "hashtag_id"
+    t.integer  "tweet_id"
+    t.integer  "hashtag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
+
+  add_index "tweets_hashtags", ["hashtag_id"], name: "index_tweets_hashtags_on_hashtag_id"
+  add_index "tweets_hashtags", ["tweet_id"], name: "index_tweets_hashtags_on_tweet_id"
 
   create_table "users", force: :cascade do |t|
     t.string "username"

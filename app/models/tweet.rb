@@ -3,9 +3,8 @@ require "./app/models/tweets_hashtag"
 
 class Tweet < ActiveRecord::Base
   belongs_to :user
-  has_many :hashtag, {:through => :tweets_hashtags}
-
-  serialize :hashtags, Array
+  has_many :tweets_hashtags
+  has_many :hashtag, :through => :tweets_hashtags
 
   validates :user_id, 
     presence: true

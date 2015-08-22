@@ -3,10 +3,11 @@
   <div class="col-xs-12 col-sm-8">
     <div class="list-group">
       <% @all_tweets.each do |tweet| %>
-        <div class="list-group-item">
-          <p class="twitter-syntax list-group-item-text">
+        <div class="twitter-syntax list-group-item">
+          <p class="twitter-text list-group-item-text">
             @<%= tweet.user.username %> - <%= tweet.msg %>
           </p>
+          <div class="twitter-content"></div>
         </div>
       <% end %>
     </div>
