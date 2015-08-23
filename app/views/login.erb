@@ -11,7 +11,7 @@
         }
       }).fail(function(data){
         data = jQuery.parseJSON(data.responseText);
-        alert(data.message);
+        sweetAlert("Error", data.message, "error");
       });
     });
   });

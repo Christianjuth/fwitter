@@ -2,7 +2,7 @@
 	<div class="panel panel-default">
     <div class="panel-body">
     	<h4>Who to follow</h4>
-		  <% User.where.not({id: @user.id}).limit(3).each do |user| %>
+		  <% User.order("RANDOM()").where.not({id: @user.id}).limit(3).each do |user| %>
 		  	<p>
 		  		@<%= user.username %>
 		  	</p>
