@@ -1,11 +1,11 @@
 <% if @user %>
-	<div class="panel panel-default">
+	<div class="hidden-sm hidden-xs panel panel-default">
     <div class="panel-body">
     	<h4>Who to follow</h4>
 		  <% User.order("RANDOM()").where.not({id: @user.id}).limit(3).each do |user| %>
-		  	<p>
-		  		@<%= user.username %>
-		  	</p>
+		  	<h5>
+		  		<a href="#">@<%= user.username %></a>
+		  	</h5>
 		  <% end %>
   	</div>
   </div>

@@ -17,7 +17,7 @@
       <div class="form-group">
         <textarea style="resize:none" rows="1" name="msg" class="form-control" placeholder="140 characters or less..." maxlength="140"></textarea>
       </div>
-      <button type="submit" class="collapsed-hide btn btn-default btn-block btn-sm">Submit</button>
+      <button type="submit" class="collapsed-hide btn btn-success btn-block btn-sm">Submit</button>
     </form>
   </li>
 
@@ -26,16 +26,24 @@
       <div class="media">
         <div class="media-left">
           <a href="#">
-            <img class="media-object img-rounded" height="40" width="40" src="http://1.bp.blogspot.com/-8Ql-je3wAwE/Tx3rdNDS5QI/AAAAAAAABM8/u5bxexEDYG0/s1600/twitter+default+profile.png">
+            <img class="media-object img-rounded" height="45" width="45" src="http://1.bp.blogspot.com/-8Ql-je3wAwE/Tx3rdNDS5QI/AAAAAAAABM8/u5bxexEDYG0/s1600/twitter+default+profile.png">
           </a>
         </div>
         <div class="media-body">
+          <span>
+            <strong><%= tweet.user.username %></strong>
+            <span class="text-muted">@<%= tweet.user.username %></span>
+          </span>
           <div class="twitter-syntax">
-              <p class="twitter-text">
-                @<%= tweet.user.username %> - <%= tweet.msg %>
-              </p>
-              <div class="twitter-content"></div>
-            </div>
+            <h4 class="twitter-text">
+               <%= tweet.msg %>
+            </h4>
+            <p class="twitter-content"></p>
+          </div>
+          <div class="btn-group btn-group-xs" role="group">
+            <button type="button" class="btn btn-default"><i class="fa fa-star"></i></button>
+            <button type="button" class="btn btn-default"><i class="fa fa-refresh"></i></button>
+          </div>
         </div>
       </div>
     </li>

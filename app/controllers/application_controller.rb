@@ -18,7 +18,7 @@ class ApplicationController < Sinatra::Base
 
   # If loged in
   before do
-    if !session[:user_id] && !["/login","/signup"].include?(request.path)
+    if (!session[:user_id] || !User.exists?(session[:user_id]) ) && !["/login","/signup"].include?(request.path)
       redirect "/login"
     elsif !["/login","/signup"].include?(request.path)
       @user = User.find(session[:user_id])
