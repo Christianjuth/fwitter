@@ -27,8 +27,7 @@ class ApplicationController < Sinatra::Base
 
   # Home page
   get "/" do
-    @all_tweets = Tweet.all.reverse
-    @all_users  = User.all
+    @all_tweets = Tweet.all.limit(50).reverse
     erb :index
   end
 
@@ -53,9 +52,30 @@ class ApplicationController < Sinatra::Base
       email:    params[:email],
       hashed_password: params[:password],
     })
-    user.save
-    session[:user_id] = user.id
-    redirect '/'
+    if user.save
+      session[:user_id] = user.id
+      case request_type?
+      when :ajax
+        body ({
+          success: true,
+          message: "success", 
+          redirect: "/" 
+        }.to_json)
+      else 
+        redirect "/"
+      end
+    else
+      case request_type?
+      when :ajax
+        status 500
+        body({
+          success: false, 
+          message: error_messages_for(user).to_str
+        }.to_json)
+      else 
+        redirect "/"
+      end
+    end
   end
 
   # Login
@@ -65,11 +85,29 @@ class ApplicationController < Sinatra::Base
 
   post '/login' do
     @user = User.find_by({username: params[:username]})
-    unless session[:user_id]
+    if @user
       session[:user_id] = @user.id
-      redirect "/"
+      case request_type?
+      when :ajax
+        body({
+          success: true, 
+          message: "success",
+          redirect: "/"
+        }.to_json)
+      else 
+        redirect "/"
+      end
     else
-      redirect "/login"
+      case request_type?
+      when :ajax
+        status 500
+        body({
+          success: false, 
+          message: "Incorrect username or password"
+        }.to_json)
+      else 
+        redirect "/login"
+      end
     end
   end
 
@@ -77,5 +115,21 @@ class ApplicationController < Sinatra::Base
   post '/logout' do
     session[:user_id] = nil
     redirect "/"
+  end
+
+  # Helpers
+  def error_messages_for(object)
+    all_errors = ""
+    for error in object.errors.messages do
+      key = error.first.to_s.capitalize
+      what_is_wrong = error.second.join(' and ')
+      all_errors += "#{key} #{what_is_wrong}.\n"
+    end
+    all_errors
+  end
+
+  def request_type?
+    return :ajax    if request.xhr?
+    return :normal
   end
 end

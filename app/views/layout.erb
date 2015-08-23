@@ -18,9 +18,18 @@
 <body>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-xs-12 col-md-8 col-md-offset-2">
-        <%= ERB.new(File.read("./app/views/header.erb")).result(binding) %>
-        <%= yield %>
+      <div class="col-xs-12 col-lg-8 col-lg-offset-2">
+        <%= ERB.new(File.read("./app/views/components/header.erb")).result(binding) %>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-8">
+            <%= yield %>
+          </div>
+          <div class="col-xs-12 col-sm-4">
+            <%= ERB.new(File.read("./app/views/components/sidebar.erb")).result(binding) %>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

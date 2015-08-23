@@ -8,6 +8,10 @@ body{
   padding-top: 15px;
 }
 
-.twitter-content > *{
-	margin-top: 5px;
+.new-tweet.collapsed > *{
+	margin-bottom: 0px;
+}
+
+.new-tweet.collapsed .collapsed-hide{
+	display: none;
 }

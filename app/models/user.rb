@@ -1,6 +1,3 @@
-# Set environment
-require "./config/environment"
-
 class User < ActiveRecord::Base
   # Table links
   has_many :tweets
@@ -9,10 +6,10 @@ class User < ActiveRecord::Base
   validates :username, 
     presence: true, 
     format: { with: /\A([a-z]|[1-9])+\Z/i,
-    message: "user letters and numbers only" }
+    message: "use letters and numbers only" }
 
   validates :email, 
     presence: true, 
-    format: { with: /.+@.+\..+/i,
-    message: "Email is not valid" }
+    format: { with: /\S+@\S+\.\S+/i,
+    message: "email is not valid" }
 end

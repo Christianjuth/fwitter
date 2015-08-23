@@ -1,0 +1,19 @@
+<% if @user %>
+	<div class="panel panel-default">
+    <div class="panel-body">
+    	<h4>Who to follow</h4>
+		  <% User.where.not({id: @user.id}).limit(3).each do |user| %>
+		  	<p>
+		  		@<%= user.username %>
+		  	</p>
+		  <% end %>
+  	</div>
+  </div>
+<% end %>
+
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <p>Built with <span class="text-danger">&#10084;</span> and Ruby by Christian Juth at the Flatiron School. This project is projected by the MIT licence and is opensource.</p>
+  </div>
+</div>

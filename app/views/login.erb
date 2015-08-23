@@ -1,18 +1,38 @@
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#login-form").submit(function(e){
+      e.preventDefault();
+      $.post("/login", $(this).serialize(), function() {
+      }).success(function(data){
+        data = jQuery.parseJSON(data);
+        if (data.redirect) {
+          // data.redirect contains the string URL to redirect to
+          window.location.href = data.redirect;
+        }
+      }).fail(function(data){
+        data = jQuery.parseJSON(data.responseText);
+        alert(data.message);
+      });
+    });
+  });
+</script>
+
+
 <div class="panel panel-default">
   <div class="panel-body">
 
-    <form action="/login" method="POST">
+    <form id="login-form" action="/login" method="POST">
       <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" name="username" class="form-control" id="username" placeholder="username">
+        <input type="text" name="username" class="form-control" id="username" placeholder="johnsmith" required>
       </div>
       <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" name="email" class="form-control" id="email" placeholder="email">
+        <label for="password">Password</label>
+        <input type="password" name="password" class="form-control" id="password">
       </div>
       <div class="pull-right">
         <a href="/signup" class="btn btn-default">Create account</a>
-        <button type="submit" class="btn btn-default">Login</button>
+        <button type="submit" class="btn btn-success">Login</button>
       </div>
     </form>
 

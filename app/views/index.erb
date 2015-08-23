@@ -1,38 +1,43 @@
-<div class="row">
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".new-tweet").mouseenter(function(){
+      $(this).removeClass('collapsed');
+      $(this).find("textarea").attr("rows", 3);
+    }).mouseleave(function(){
+      $(this).addClass('collapsed');
+      $(this).find("textarea").attr("rows", 1);
+    });
+  });
+</script>
 
-  <div class="col-xs-12 col-sm-8">
-    <div class="list-group">
-      <% @all_tweets.each do |tweet| %>
-        <div class="twitter-syntax list-group-item">
-          <p class="twitter-text list-group-item-text">
-            @<%= tweet.user.username %> - <%= tweet.msg %>
-          </p>
-          <div class="twitter-content"></div>
+
+<ul class="list-group">
+  <li class="list-group-item">
+    <form class="new-tweet collapsed" action="/new_tweet" method="POST">
+      <div class="form-group">
+        <textarea style="resize:none" rows="1" name="msg" class="form-control" placeholder="140 characters or less..." maxlength="140"></textarea>
+      </div>
+      <button type="submit" class="collapsed-hide btn btn-default btn-block btn-sm">Submit</button>
+    </form>
+  </li>
+
+  <% @all_tweets.each do |tweet| %>
+    <li class="list-group-item">
+      <div class="media">
+        <div class="media-left">
+          <a href="#">
+            <img class="media-object img-rounded" height="40" width="40" src="http://1.bp.blogspot.com/-8Ql-je3wAwE/Tx3rdNDS5QI/AAAAAAAABM8/u5bxexEDYG0/s1600/twitter+default+profile.png">
+          </a>
         </div>
-      <% end %>
-    </div>
-  </div>
-
-
-  <div class="col-xs-12 col-sm-4">
-    <div class="panel panel-default">
-      <div class="panel-body">
-
-        <form id="tweet-form" action="/new_tweet" method="POST">
-          <div class="form-group">
-            <textarea rows="4" type="text" name="msg" class="form-control" id="msg" placeholder="140 characters or less..."></textarea>
-          </div>
-          <button type="submit" class="btn btn-default btn-block pull-right">Submit</button>
-        </form>
-
+        <div class="media-body">
+          <div class="twitter-syntax">
+              <p class="twitter-text">
+                @<%= tweet.user.username %> - <%= tweet.msg %>
+              </p>
+              <div class="twitter-content"></div>
+            </div>
+        </div>
       </div>
-    </div>
-
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <p>Built with <span class="text-danger">&#10084;</span> and Ruby by Christian Juth at the Flatiron School. This project is projected by the MIT licence and is opensource.</p>
-      </div>
-    </div>
-  </div>
-
-</div>
+    </li>
+  <% end %>
+</ul>

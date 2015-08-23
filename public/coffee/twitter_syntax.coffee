@@ -36,6 +36,7 @@ $(document).ready ->
       video = text.match(/https:\/\/(www\.|)youtube\.com\S+/ig) || []
       if video.length
         video = video[0].replace("watch?v=","embed/")
+        video = video.replace(/\?rel\S+/,"") + "?rel=0&amp;controls=0&amp;showinfo=0"
         video = """
           <div class="embed-responsive embed-responsive-16by9">
             <iframe class="embed-responsive-item" src="#{video}"></iframe>
