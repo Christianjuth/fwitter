@@ -10,17 +10,20 @@
   });
 </script>
 
-<ul class="list-group">
-  <li class="list-group-item">
-    <form class="new-tweet collapsed" action="/new_tweet" method="POST">
-      <div class="form-group">
-        <textarea style="resize:none" rows="1" name="msg" class="form-control" placeholder="140 characters or less..." maxlength="140"></textarea>
-      </div>
-      <button type="submit" class="collapsed-hide btn btn-success btn-block btn-sm">Submit</button>
-    </form>
-  </li>
 
-  <% @all_tweets.each do |tweet| %>
+<ul class="list-group">
+  <% if @requested_user.id == @user.id %>
+    <li class="list-group-item">
+      <form class="new-tweet collapsed" action="/new_tweet" method="POST">
+        <div class="form-group">
+          <textarea style="resize:none" rows="1" name="msg" class="form-control" placeholder="140 characters or less..." maxlength="140"></textarea>
+        </div>
+        <button type="submit" class="collapsed-hide btn btn-success btn-block btn-sm">Submit</button>
+      </form>
+    </li>
+  <% end %>
+
+  <% @requested_user.tweets.each do |tweet| %>
     <li class="list-group-item">
       <div class="media">
         <div class="media-left">

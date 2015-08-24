@@ -31,7 +31,7 @@ class Tweet < ActiveRecord::Base
   end
 
   before_destroy do |tweet|
-    link = Tweets_Hashtag.find(tweet.id)
-    link.destroy
+    link = Tweets_Hashtag.where({tweet_id: tweet.id})
+    link.destroy_all
   end
 end

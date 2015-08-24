@@ -14,4 +14,9 @@ class User < ActiveRecord::Base
     presence: true, 
     format: { with: /\S+@\S+\.\S+/i,
     message: "email is not valid" }
+
+  # Cleanup the database
+  before_destroy do |user|
+  	user.tweets.destroy_all
+  end
 end

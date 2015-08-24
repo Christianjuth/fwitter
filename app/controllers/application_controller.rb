@@ -18,7 +18,8 @@ class ApplicationController < Sinatra::Base
 
   # If loged in
   before do
-    if (!session[:user_id] || !User.exists?(session[:user_id]) ) && !["/login","/signup"].include?(request.path)
+    if (!session[:user_id] || !User.exists?(session[:user_id])) && !["/login","/signup"].include?(request.path)
+      session.destroy
       redirect "/login"
     elsif !["/login","/signup"].include?(request.path)
       @user = User.find(session[:user_id])
@@ -42,8 +43,29 @@ class ApplicationController < Sinatra::Base
       user_id: @user.id,
       msg: params[:msg]
     })
-    tweet.save
-    redirect '/'
+    if tweet.save
+      case request_type?
+      when :ajax
+        body({
+          success: true, 
+          message: "success",
+          redirect: "/"
+        }.to_json)
+      else 
+        redirect "/"
+      end
+    else
+      case request_type?
+      when :ajax
+        status 500
+        body({
+          success: false, 
+          message: error_messages_for(tweet).to_str
+        }.to_json)
+      else
+        redirect "/"
+      end
+    end
   end
 
   # User sign up
@@ -119,7 +141,16 @@ class ApplicationController < Sinatra::Base
   # Logout
   post '/logout' do
     session.destroy
-    redirect "/"
+    case request_type?
+    when :ajax
+      body({
+        success: true, 
+        message: "success",
+        redirect: "/"
+      }.to_json)
+    else 
+      redirect "/"
+    end
   end
 
   # Helpers
