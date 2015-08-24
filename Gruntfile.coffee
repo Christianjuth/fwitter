@@ -10,13 +10,8 @@ module.exports = (grunt)->
     pkg: grunt.file.readJSON('package.json')
     sass:
       default:
-        files: [{
-          expand: true,
-          cwd: "public/sass",
-          src: ["**/*.scss"],
-          dest: "public/css",
-          ext: ".css"
-        }]
+        files:
+          "public/css/style.css": "public/sass/style.scss"
     coffee:
       default:
         files: [{
