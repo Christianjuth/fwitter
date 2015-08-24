@@ -4,7 +4,9 @@
     	<h4>Who to follow</h4>
 		  <% User.order("RANDOM()").where.not({id: @user.id}).limit(3).each do |user| %>
 		  	<h5>
-		  		<a href="#">@<%= user.username %></a>
+		  		<a href="/user/<%= user.username %>">
+		  			@<%= user.username %>
+		  		</a>
 		  	</h5>
 		  <% end %>
   	</div>
@@ -14,6 +16,6 @@
 
 <div class="panel panel-default">
   <div class="panel-body">
-    <p>Built with <span class="text-danger">&#10084;</span> and Ruby by Christian Juth at the Flatiron School. This project is projected by the MIT licence and is opensource.</p>
+    <p>Built with <span class="text-danger">&#10084;</span> and Ruby by Christian Juth at the Flatiron School. This project is protected by the MIT licence and is opensource.</p>
   </div>
 </div>

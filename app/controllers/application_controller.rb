@@ -31,6 +31,11 @@ class ApplicationController < Sinatra::Base
     erb :index
   end
 
+  get "/user/:username" do
+    @requested_user = User.find_by({username: params[:username]})
+    erb :user
+  end
+
   # Post to Fwitter
   post '/new_tweet' do
     tweet = Tweet.new({
@@ -113,7 +118,7 @@ class ApplicationController < Sinatra::Base
 
   # Logout
   post '/logout' do
-    session[:user_id] = nil
+    session.destroy
     redirect "/"
   end
 

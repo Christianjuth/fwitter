@@ -8,6 +8,12 @@ module.exports = (grunt)->
   # Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json')
+    watch:
+      default:
+        files: ["public/sass/**/*.scss", "public/coffee/**/*.coffee"]
+        tasks: ["sass", "coffee"]
+        options:
+          event: ["added", "changed"]
     sass:
       default:
         files:
@@ -24,4 +30,5 @@ module.exports = (grunt)->
   });
 
   # Default task(s).
-  grunt.registerTask('default', ['sass', 'coffee'])
+  grunt.registerTask("default", ["sass", "coffee"])
+  grunt.registerTask("develop", ["sass", "coffee", "watch"])
